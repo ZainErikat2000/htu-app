@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "168359369427",
+    "project_id": "htu-project-64a3c",
+    "storage_bucket": "htu-project-64a3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168359369427:android:1d6fbe54c20b3521f9d226",
+        "android_client_info": {
+          "package_name": "com.zainerikat.htu_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168359369427-25fvtbueifdbnlkk5m0287q86d917l1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zainerikat.htu_app",
+            "certificate_hash": "44680e64c8c9331c1f400de5d420c7f36f7b2dc0"
+          }
+        },
+        {
+          "client_id": "168359369427-vntdmj18gd1fk3po59ugpdftpul2p93h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgbro5rvWhzxCllikx5qR7NjQFKARa1AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168359369427-vntdmj18gd1fk3po59ugpdftpul2p93h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
