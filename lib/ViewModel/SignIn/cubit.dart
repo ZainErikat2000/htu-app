@@ -12,24 +12,27 @@ class SignInCubit extends Cubit<SignInStates> {
   Future<void> SignInUser(String email, String password) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
 
-    emit(SignInLoadingState());
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
       pref.setString('id', value.user!.uid.toString());
       if (kDebugMode) {
         print(value.user!.uid.toString());
-        emit(SignInSuccessState());
       }
+      emit(SignInSuccessState());
     })
         //ON ERROR
         .catchError((onError) {
-      print(onError.toString());
       emit(
         SignInErrorState(
-          msg: onError.toString(),
+          msg: onError,
         ),
       );
     });
+  }
+
+  Future<void> SignOutUser() async {
+    emit(SignInInitState());
+    await FirebaseAuth.instance.signOut();
   }
 }
