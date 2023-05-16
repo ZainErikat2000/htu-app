@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:htu_app/ViewModel/categories/CategoryRoute.dart';
 import 'package:htu_app/ViewModel/categories/cubit.dart';
 import 'package:htu_app/models/item.dart';
 
@@ -17,18 +18,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         child: ElevatedButton(
             onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider<CategoryCubit>(
-                      create: (context) => CategoryCubit()
-                        ..getItemsFromCategory(category: 'Tech'),child: Scaffold(appBar: AppBar(),body: BlocBuilder<CategoryCubit,List<Item>>(builder: (context,list){
-                          if(list.isEmpty){
-                            return Center(child: CircularProgressIndicator(),);
-                          }else{
-                            return ListView.builder(itemCount: list.length,itemBuilder: (context,index) => ListTile(title: Text(list[index].name),));
-                          }
-                    }),),
-                    ),
-                  ),
+                  MaterialPageRoute(builder: (context)=>CategoryRoute(category: 'Tech')),
                 ),
             child: Text('hello')));
   }
