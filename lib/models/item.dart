@@ -7,15 +7,15 @@ class Item {
       required this.pic});
 
   String name;
-  double price;
+  num price;
   String category;
   String date;
   String pic;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
       name: json['name'],
-      price: json['price'],
+      price: json['price'] as double,
       category: json['category'],
-      date: json['json'],
+      date: json['date'],
       pic: json['pic']);
 }

@@ -20,6 +20,13 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                  height: 200,
+                  child: CircleAvatar(onBackgroundImageError: (object,s) => Text(''),
+                    radius: 100,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: NetworkImage(user.pic),
+                  )),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 height: 20,
                 margin:
@@ -35,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 20,
                 margin:
-                EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
+                    EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -47,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 20,
                 margin:
-                EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
+                    EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -59,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 20,
                 margin:
-                EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
+                    EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
                                 .BuildCategoriesScreen();
                             Navigator.pop(context);
                           },
-                          text: 'Cart',
+                          text: 'Categories',
                           icon: Icon(Icons.category)),
                     ],
                   ),
