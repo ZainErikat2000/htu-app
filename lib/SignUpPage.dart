@@ -67,34 +67,39 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordRepeatController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController bDayYearController = TextEditingController();
+  TextEditingController bDayMonthController = TextEditingController();
+  TextEditingController bDayDayController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 'Sign Up',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * .8,
                 child: TextField(
                   controller: emailController,
                   obscureText: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -104,15 +109,122 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .8,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .35,
+                        child: TextField(
+                          controller: firstNameController,
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                            hintText: 'First Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .35,
+                        child: TextField(
+                          controller: lastNameController,
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                            hintText: 'Last Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 10,
               ),
-              Container(
+              Text('Date of Birth'),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .25,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: bDayYearController,
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          hintText: 'Year',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .25,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: bDayMonthController,
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          hintText: 'Month',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .25,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: bDayDayController,
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          hintText: 'Day',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
                 width: MediaQuery.of(context).size.width * .8,
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Password',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -122,15 +234,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * .8,
                 child: TextField(
                   controller: passwordRepeatController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Repeat Password',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -140,22 +252,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18,
               ),
-              Text(textAlign: TextAlign.center,
+              Text(
+                textAlign: TextAlign.center,
                 stateMessage,
-                style: TextStyle(color: stateMessageColor,fontSize: 14),
+                style: TextStyle(color: stateMessageColor, fontSize: 14),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18,
               ),
-              Container(
+              SizedBox(
                 height: 40,
                 width: MediaQuery.of(context).size.width / 3,
                 child: ElevatedButton(
-                  onPressed: () => signUp(emailController.text, passwordController.text, passwordRepeatController.text),
-                  child: Text('Sign Up'),
+                  onPressed: () => signUp(emailController.text,
+                      passwordController.text, passwordRepeatController.text),
+                  child: const Text('Sign Up'),
                 ),
               )
             ],

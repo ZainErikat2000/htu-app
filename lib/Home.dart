@@ -7,6 +7,7 @@ import 'package:htu_app/Page_Routing/pages/categories_screen.dart';
 import 'package:htu_app/Page_Routing/pages/profile/cubit.dart';
 import 'package:htu_app/Page_Routing/pages/profile_screen.dart';
 import 'package:htu_app/ViewModel/SignIn/cubit.dart';
+import 'package:htu_app/ViewModel/cart/cubit.dart';
 import 'package:htu_app/custom/DrawerButton.dart';
 
 import 'Page_Routing/pages/settings_screen.dart';
@@ -31,7 +32,9 @@ class _HomeState extends State<Home> {
         } else if (state is PageRoutingSettingsState) {
           return SettingsScreen();
         } else if (state is PageRoutingCartState) {
-          return CartScreen();
+          return BlocProvider<CartCubit>(
+              create: (context) => CartCubit()..getUserCart(),
+              child: CartScreen());
         } else if (state is PageRoutingCategoriesState) {
           return CategoriesScreen();
         } else {

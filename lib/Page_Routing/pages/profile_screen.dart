@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:htu_app/Page_Routing/pages/history_page.dart';
 import 'package:htu_app/Page_Routing/pages/profile/cubit.dart';
 import 'package:htu_app/Page_Routing/pages/profile/states.dart';
 import 'package:htu_app/ViewModel/SignIn/cubit.dart';
 import 'package:htu_app/ViewModel/SignIn/states.dart';
+import 'package:htu_app/ViewModel/purchase_history/PurchaseHistoryCubit.dart';
 import 'package:htu_app/custom/LogOutButton.dart';
 
 import '../../models/user.dart';
@@ -21,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Container(
                   height: 200,
-                  child: CircleAvatar(onBackgroundImageError: (object,s) => Text(''),
+                  child: CircleAvatar(
+                    onBackgroundImageError: (object, s) => Text(''),
                     radius: 100,
                     backgroundColor: Colors.transparent,
                     backgroundImage: NetworkImage(user.pic),
@@ -74,9 +77,22 @@ class ProfileScreen extends StatelessWidget {
                       Text('${user.dob}'),
                     ]),
               ),
+              ElevatedButton(
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              BlocProvider<PurchaseHistoryCubit>(
+                            create: (context) =>
+                                PurchaseHistoryCubit()..getBills(),
+                            child: PurchaseHistoryPage(),
+                          ),
+                        ),
+                      ),
+                  child: Text('View History'))
             ],
           ),
-          BlocProvider(
+          BlocProvider<SignInCubit>(
               create: (context) => SignInCubit(), child: LogOutButton())
         ],
       ),

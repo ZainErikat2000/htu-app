@@ -14,12 +14,72 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ElevatedButton(
-            onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=>CategoryRoute(category: 'Tech')),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 5000,
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CategoryRoute(category: 'Misc'),
+              ),
+            ),
+            child: Container(
+              margin: EdgeInsets.only(top: 30),
+              decoration: BoxDecoration(
+                border: Border.all(width: 2),
+                color: Colors.transparent,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
                 ),
-            child: Text('hello')));
+              ),
+              width: MediaQuery.of(context).size.width * .8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Icon(Icons.house_rounded),
+                    Text(
+                      'Miscellanious',
+                      style: TextStyle(fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CategoryRoute(category: 'Tech'))),
+            child: Container(
+              margin: EdgeInsets.only(top: 30),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 2),
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              width: MediaQuery.of(context).size.width * .8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    const Icon(Icons.computer_outlined),
+                    Text(
+                      'Technology',
+                      style: TextStyle(fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

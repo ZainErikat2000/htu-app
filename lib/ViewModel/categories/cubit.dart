@@ -10,6 +10,6 @@ class CategoryCubit extends Cubit<List<Item>> {
         .collection('items')
         .where('category', isEqualTo: category)
         .get();
-    emit(result.docs.map((e) => Item.fromJson(e.data())).toList());
+    emit(result.docs.map((e) => Item.fromJson(e.data(),e.id)).toList());
   }
 }
