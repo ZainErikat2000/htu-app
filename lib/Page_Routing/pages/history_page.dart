@@ -54,7 +54,6 @@ class PurchaseHistoryPage extends StatelessWidget {
                                           for (Item item in il) {
                                             total += item.price;
                                           }
-
                                           List<Widget> itemsInfo =
                                               List<Widget>.generate(
                                             il.length,
@@ -72,9 +71,7 @@ class PurchaseHistoryPage extends StatelessWidget {
                                               ),
                                             ),
                                           );
-
                                           itemsInfo.add(Text('Total:   ${total.toStringAsFixed(2)}'));
-
                                           return Column(
                                             children: itemsInfo,
                                           );

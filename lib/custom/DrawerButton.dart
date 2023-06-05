@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DrawerButton extends StatelessWidget {
-  DrawerButton({required this.onTap, this.icon, required this.text, Key? key})
+class DrawerButtonSim extends StatelessWidget {
+  DrawerButtonSim({required this.onTap, this.icon, required this.text, Key? key})
       : super(key: key);
   final VoidCallback onTap;
   Widget? icon = null;

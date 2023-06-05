@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io' as io;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -9,10 +13,60 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  String picUrl = '';
   String stateMessage = '';
   Color stateMessageColor = Colors.red;
+  bool imagesPicked = false;
 
-  void signUp(String email, String pass, String passR) async {
+  Future<String> uploadImage() async {
+    //pick image
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    //check if image picked
+    if (pickedImage == null) {
+      setState(() {
+        stateMessage = 'Please pick a picture';
+        stateMessageColor = Colors.red;
+      });
+      return '';
+    }
+
+    //turn image XFile to File
+    final photo = io.File(pickedImage.path);
+
+    //set refs
+    final fileName = pickedImage.name;
+    final destination = 'profilePics/$fileName';
+
+    try {
+      final ref =
+          FirebaseStorage.instance.ref(destination).child('profilePics/');
+      final uploadedTask = await ref.putFile(photo).then((p0) async {
+        picUrl = await p0.ref.getDownloadURL();
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        stateMessage = 'an error occurred during uploading the file';
+        stateMessageColor = Colors.red;
+      });
+      return picUrl;
+    }
+    imagesPicked = false;
+    return picUrl;
+  }
+
+  void signUp(
+      {required String email,
+      required String pass,
+      required String passR,
+      required String fName,
+      required String lName,
+      required String year,
+      required String month,
+      required String day}) async {
     //check for empty input fields
     if (email.isEmpty || pass.isEmpty || passR.isEmpty) {
       setState(() {
@@ -45,20 +99,73 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
+    if (year.length != 4 || int.parse(year) < 1900) {
+      setState(() {
+        stateMessage = 'Please enter valid year';
+        stateMessageColor = Colors.red;
+      });
+      return;
+    }
+
+    if (int.parse(month) > 12 || int.parse(month) < 1) {
+      setState(() {
+        stateMessage = 'Please enter valid month';
+        stateMessageColor = Colors.red;
+      });
+      return;
+    }
+
+    if (int.parse(day) > 31 || int.parse(day) < 1) {
+      setState(() {
+        stateMessage = 'Please enter valid day of month';
+        stateMessageColor = Colors.red;
+      });
+      return;
+    }
+
+    if (!imagesPicked) {
+      setState(() {
+        stateMessage = 'Please enter choose a profile picture';
+        stateMessageColor = Colors.red;
+      });
+    }
+
+    String picURL = await uploadImage();
+
+    if(picURL.isEmpty){
+      setState(() {
+        stateMessage = 'Failed to get profile pic';
+        stateMessageColor = Colors.red;
+      });
+       return;
+     }
+
     //sign up user
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: pass)
         .then(
-          (value) => setState(
-            () {
-              stateMessage = 'Sign up successfully';
-              stateMessageColor = Colors.green;
-            },
-          ),
-        )
-        .catchError((onError) {
+      (userCredential) async {
+        String? uid = userCredential.user?.uid;
+        CollectionReference reference =
+            FirebaseFirestore.instance.collection('users');
+        await reference.doc(uid).set({
+          'dob': '$year-$month-$day',
+          'email': email,
+          'fname': fName,
+          'lname': lName,
+          'pic': picURL
+        });
+
+        setState(
+          () {
+            stateMessage = 'Sign up successfully';
+            stateMessageColor = Colors.green;
+          },
+        );
+      },
+    ).onError((onError, stackTrace) {
       setState(() {
-        stateMessage = 'An Error Occured: $onError';
+        stateMessage = 'An Error Occurred: $onError';
         stateMessageColor = Colors.red;
       });
     });
@@ -267,8 +374,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 40,
                 width: MediaQuery.of(context).size.width / 3,
                 child: ElevatedButton(
-                  onPressed: () => signUp(emailController.text,
-                      passwordController.text, passwordRepeatController.text),
+                  onPressed: () => signUp(
+                      email: emailController.text,
+                      pass: passwordController.text,
+                      passR: passwordRepeatController.text,
+                      fName: firstNameController.text,
+                      lName: lastNameController.text,
+                      year: bDayYearController.text,
+                      month: bDayMonthController.text,
+                      day: bDayDayController.text),
                   child: const Text('Sign Up'),
                 ),
               )

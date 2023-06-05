@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:htu_app/Page_Routing/PageRoutingCubit.dart';
 import 'package:htu_app/Page_Routing/PageRoutingStates.dart';
+import 'package:htu_app/Page_Routing/pages/SearchPage.dart';
 import 'package:htu_app/Page_Routing/pages/cart_screen.dart';
 import 'package:htu_app/Page_Routing/pages/categories_screen.dart';
 import 'package:htu_app/Page_Routing/pages/profile/cubit.dart';
@@ -43,16 +44,29 @@ class _HomeState extends State<Home> {
           );
         }
       }),
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchPage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.search))
+        ],
+      ),
       drawer: Drawer(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                color: Colors.red,
+                color: Colors.transparent,
                 height: 200,
               ),
               SizedBox(
@@ -70,32 +84,23 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      DrawerButton(
-                          onTap: () {
-                            context
-                                .read<PageRoutingCubit>()
-                                .BuildProfileScreen();
-                            Navigator.pop(context);
-                          },
-                          text: 'Profile',
-                          icon: Icon(Icons.person)),
-                      DrawerButton(
-                          onTap: () {
-                            context
-                                .read<PageRoutingCubit>()
-                                .BuildSettingsScreen();
-                            Navigator.pop(context);
-                          },
-                          text: 'Settings',
-                          icon: Icon(Icons.settings)),
-                      DrawerButton(
-                          onTap: () {
-                            context.read<PageRoutingCubit>().BuildCartScreen();
-                            Navigator.pop(context);
-                          },
-                          text: 'Cart',
-                          icon: Icon(Icons.shopping_cart)),
-                      DrawerButton(
+                      DrawerButtonSim(
+                        onTap: () {
+                          context.read<PageRoutingCubit>().BuildProfileScreen();
+                          Navigator.pop(context);
+                        },
+                        text: 'Profile',
+                        icon: Icon(Icons.person),
+                      ),
+                      DrawerButtonSim(
+                        onTap: () {
+                          context.read<PageRoutingCubit>().BuildCartScreen();
+                          Navigator.pop(context);
+                        },
+                        text: 'Cart',
+                        icon: Icon(Icons.shopping_cart),
+                      ),
+                      DrawerButtonSim(
                           onTap: () {
                             context
                                 .read<PageRoutingCubit>()
